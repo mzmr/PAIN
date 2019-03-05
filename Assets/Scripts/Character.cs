@@ -4,6 +4,11 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    [SerializeField]
+    private float speed;
+
+    protected Vector2 direction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -11,8 +16,13 @@ public abstract class Character : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        
+        Move();
+    }
+
+    public void Move()
+    {
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 }
