@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Player : Character
 {
+    [SerializeField]
+    private Stat health;
+
+    [SerializeField]
+    private Stat mana;
+
+    private float initHealth = 100;
+    private float initMana = 50;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        health.Initialize(initHealth, initHealth);
+        mana.Initialize(initMana, initMana);
         base.Start();
     }
 
@@ -21,6 +31,17 @@ public class Player : Character
     private void GetInput()
     {
         direction = Vector2.zero;
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            health.CurrentValue -= 10;
+            mana.CurrentValue -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            health.CurrentValue += 10;
+            mana.CurrentValue += 10;
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
