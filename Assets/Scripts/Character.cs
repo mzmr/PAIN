@@ -26,11 +26,21 @@ public abstract class Character : MonoBehaviour
     public void Move()
     {
         transform.Translate(direction * speed * Time.deltaTime);
-        AnimateMovement(direction);
+
+        if (direction.x != 0 || direction.y != 0)
+        {
+            AnimateMovement(direction);
+        }
+        else
+        {
+            animator.SetLayerWeight(1, 0);
+        }
     }
 
     public void AnimateMovement(Vector2 direction)
     {
+        animator.SetLayerWeight(1, 1);
+
         animator.SetFloat("x", direction.x);
         animator.SetFloat("y", direction.y);
     }
