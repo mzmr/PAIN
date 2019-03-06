@@ -7,6 +7,10 @@ public class Stat : MonoBehaviour
 {
 
     private Image content;
+
+    [SerializeField]
+    private Text statValue;
+
     private float currentFill;
     private float currentValue;
 
@@ -30,6 +34,7 @@ public class Stat : MonoBehaviour
             }
 
             currentFill = currentValue / MyMaxValue;
+            statValue.text = currentValue + "/" + MyMaxValue;
         }
     }
 
