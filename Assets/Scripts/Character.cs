@@ -11,37 +11,58 @@ public abstract class Character : MonoBehaviour
 
     private Animator animator;
 
+    private Rigidbody2D rigidBody;
+
+    public bool IsMoving
+    {
+        get => direction.x != 0 || direction.y != 0;
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        HandleLayers();
+    }
+
+    private void FixedUpdate()
+    {
         Move();
     }
 
     public void Move()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        rigidBody.velocity = direction.normalized * speed;
+    }
 
-        if (direction.x != 0 || direction.y != 0)
+    public void HandleLayers()
+    {
+        if (IsMoving)
         {
-            AnimateMovement(direction);
+            ActivateLayer("WalkLayer");
+
+            animator.SetFloat("x", direction.x);
+            animator.SetFloat("y", direction.y);
         }
         else
         {
-            animator.SetLayerWeight(1, 0);
+            ActivateLayer("IdleLayer");
         }
     }
 
-    public void AnimateMovement(Vector2 direction)
+    public void ActivateLayer(string layerName)
     {
-        animator.SetLayerWeight(1, 1);
+        for (int i = 0; i < animator.layerCount; ++i)
+        {
+            animator.SetLayerWeight(i, 0);
+        }
 
-        animator.SetFloat("x", direction.x);
-        animator.SetFloat("y", direction.y);
+        animator.SetLayerWeight(animator.GetLayerIndex(layerName), 1);
     }
 }
