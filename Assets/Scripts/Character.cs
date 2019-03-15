@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,15 @@ public abstract class Character : MonoBehaviour
 
     protected Vector2 direction;
 
-    private Animator animator;
+    protected Vector2 lastDirection;
+
+    protected Animator animator;
 
     private Rigidbody2D rigidBody;
+
+    protected bool isAttacking = false;
+
+    protected Coroutine attackRoutine;
 
     public bool IsMoving
     {
@@ -28,6 +35,7 @@ public abstract class Character : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        MoveWhileAttacking();
         HandleLayers();
     }
 
@@ -41,9 +49,21 @@ public abstract class Character : MonoBehaviour
         rigidBody.velocity = direction.normalized * speed;
     }
 
+    private void MoveWhileAttacking()
+    {
+        if (isAttacking)
+        {
+            direction = lastDirection;
+        }
+    }
+
     public void HandleLayers()
     {
-        if (IsMoving)
+        if (isAttacking)
+        {
+            ActivateLayer("AttackLayer");
+        }
+        else if (IsMoving)
         {
             ActivateLayer("WalkLayer");
 
@@ -64,5 +84,21 @@ public abstract class Character : MonoBehaviour
         }
 
         animator.SetLayerWeight(animator.GetLayerIndex(layerName), 1);
+    }
+
+    public void StartAttack()
+    {
+        isAttacking = true;
+        animator.SetBool("attack", isAttacking);
+    }
+
+    public void StopAttack()
+    {
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+            isAttacking = false;
+            animator.SetBool("attack", isAttacking);
+        }
     }
 }

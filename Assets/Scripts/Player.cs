@@ -30,6 +30,11 @@ public class Player : Character
 
     private void GetInput()
     {
+        if (IsMoving)
+        {
+            lastDirection = direction;
+        }
+
         direction = Vector2.zero;
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -43,21 +48,36 @@ public class Player : Character
             mana.CurrentValue += 10;
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if (!isAttacking)
         {
-            direction += Vector2.up;
+            if (Input.GetKey(KeyCode.W))
+            {
+                direction += Vector2.up;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                direction += Vector2.down;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                direction += Vector2.left;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                direction += Vector2.right;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                attackRoutine = StartCoroutine(Attack());
+            }
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction += Vector2.down;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction += Vector2.left;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction += Vector2.right;
-        }
+    }
+
+    private IEnumerator Attack()
+    {
+        StartAttack();
+        yield return new WaitForSeconds(0.375f);
+        StopAttack();
     }
 }
