@@ -412,11 +412,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 508511417}
   mapData:
-  - {fileID: 2800000, guid: 9225129cf94a39646900000cc44708f8, type: 3}
+  - {fileID: 2800000, guid: e304a533f1dae0043afac67cee6d6871, type: 3}
+  - {fileID: 2800000, guid: d02c048051bd92541aed2c8b9e242399, type: 3}
   mapElements:
   - tileTag: Grass1
-    color: {r: 0, g: 0.8627451, b: 0, a: 1}
+    color: {r: 0, g: 0.8235294, b: 0, a: 1}
     elementPrefab: {fileID: 1252527701445092835, guid: 48b8da8b53f6a834282a01c5afa10841,
+      type: 3}
+  - tileTag: Sand1
+    color: {r: 1, g: 1, b: 0, a: 1}
+    elementPrefab: {fileID: 425973918786128666, guid: c5066a5e1f1af3240ae7111bff33ef89,
+      type: 3}
+  - tileTag: Trees - TallOvalGreen
+    color: {r: 0.5411765, g: 0.34901962, b: 0.12941177, a: 1}
+    elementPrefab: {fileID: 3373555390418785358, guid: 0c6a33c25d3496f46b7d0d89519b3062,
+      type: 3}
+  - tileTag: Trees - TallOvalBlue
+    color: {r: 0.5411765, g: 0.34901962, b: 0.48235294, a: 1}
+    elementPrefab: {fileID: 5645247170069351538, guid: 2452de099918fe64e9b0617c1dbf6be5,
+      type: 3}
+  - tileTag: Trees - TallOvalBrown
+    color: {r: 0.78431374, g: 0.34901962, b: 0.12941177, a: 1}
+    elementPrefab: {fileID: 6583479065367617247, guid: 51645d76c3d59fc4fb2259357da78289,
+      type: 3}
+  - tileTag: Trees - TallTriangleGreen
+    color: {r: 0.44313726, g: 0.28627452, b: 0.105882354, a: 1}
+    elementPrefab: {fileID: 3729949253957813158, guid: a9e8390bce2b2434fa2ccf8a2d8bae44,
+      type: 3}
+  - tileTag: Trees - TallTriangleBlue
+    color: {r: 0.44313726, g: 0.28627452, b: 0.4862745, a: 1}
+    elementPrefab: {fileID: 6457724467615504173, guid: 7525a4cf5557c5c49874a10630e37e14,
+      type: 3}
+  - tileTag: Trees - TallTriangleBrown
+    color: {r: 0.6745098, g: 0.28627452, b: 0.105882354, a: 1}
+    elementPrefab: {fileID: 3375046140988640977, guid: 50f862ab1c2372241bc874701b0149f3,
       type: 3}
   defaultTile: {fileID: 21300000, guid: 9a5cd2265c6dec3409079a6ef156b6f9, type: 3}
 --- !u!1 &314445200
