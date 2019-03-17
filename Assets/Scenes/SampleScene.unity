@@ -1397,5 +1397,9 @@ PrefabInstance:
       propertyPath: mana
       value: 
       objectReference: {fileID: 123825792}
+    - target: {fileID: 104910464, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
+      propertyPath: m_Size.x
+      value: 0.385
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
