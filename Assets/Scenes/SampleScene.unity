@@ -688,10 +688,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8aad04e950c38b43937091a84f96ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitHealth: 30
+  Damage: 5
   MoveSpeed: 0.5
   TargetToFollow: {fileID: 1066225734}
-  minDistanceFromTargetToMove: 1
-  maxDistanceFromTargetToMove: 8
+  MinDistanceFromTargetToMove: 1
+  MaxDistanceFromTargetToMove: 8
 --- !u!50 &449716760
 Rigidbody2D:
   serializedVersion: 4
@@ -1104,6 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  Damage: 10
   health: {fileID: 81253774}
   mana: {fileID: 123825792}
 --- !u!95 &1066225738
