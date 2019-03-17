@@ -11,6 +11,7 @@ public class Player : Character
     private Stat mana;
 
     private float initHealth = 100;
+
     private float initMana = 50;
 
     // Start is called before the first frame update

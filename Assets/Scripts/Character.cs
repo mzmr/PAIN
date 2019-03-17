@@ -8,6 +8,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public float Damage;
+
     protected Vector2 direction;
 
     protected Vector2 lastDirection;
