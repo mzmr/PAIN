@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 449716760}
   m_Layer: 0
   m_Name: Slime1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
   Damage: 5
   MoveSpeed: 0.5
   TargetToFollow: {fileID: 1066225734}
-  MinDistanceFromTargetToMove: 1
+  MinDistanceFromTargetToMove: 0.5
   MaxDistanceFromTargetToMove: 8
 --- !u!50 &449716760
 Rigidbody2D:
@@ -1324,6 +1324,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4032197862414973850, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4032197862414973844, guid: 1bb7c122a994b004aa001ecb2fceebba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1389,6 +1394,11 @@ PrefabInstance:
       propertyPath: mana
       value: 
       objectReference: {fileID: 123825792}
+    - target: {fileID: 4032197862414973845, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: Damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1066225737, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
       propertyPath: health
       value: 
@@ -1397,5 +1407,6 @@ PrefabInstance:
       propertyPath: mana
       value: 
       objectReference: {fileID: 123825792}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1066225737, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}

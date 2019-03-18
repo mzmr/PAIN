@@ -35,6 +35,8 @@ public abstract class Enemy : MonoBehaviour
 
     protected abstract Vector3 GetUpdatedVelocity();
 
+    protected abstract void OnCollisionEnter2D(Collision2D other);
+
     protected double CalculateDistanceFromTarget()
     {
         return Math.Sqrt(

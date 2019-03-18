@@ -6,6 +6,12 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
+    protected Stat health;
+
+    [SerializeField]
+    protected Stat mana;
+
+    [SerializeField]
     private float speed;
 
     public float Damage;
@@ -102,5 +108,10 @@ public abstract class Character : MonoBehaviour
             isAttacking = false;
             animator.SetBool("attack", isAttacking);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health.CurrentValue -= damage;
     }
 }

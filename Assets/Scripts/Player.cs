@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField]
-    private Stat health;
-
-    [SerializeField]
-    private Stat mana;
 
     private float initHealth = 100;
 
@@ -80,5 +75,10 @@ public class Player : Character
         StartAttack();
         yield return new WaitForSeconds(0.375f);
         StopAttack();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
     }
 }
