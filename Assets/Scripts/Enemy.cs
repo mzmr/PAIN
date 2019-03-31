@@ -11,27 +11,70 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     public float MoveSpeed;
 
+    public float AttackSpeed;
+
     public GameObject TargetToFollow;
 
     public double MaxDistanceFromTargetToMove;
 
     protected Rigidbody2D RigidBody;
 
+    protected CollisionData CollisionData;
+
+    protected bool IsAttacking = false;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         RigidBody = GetComponent<Rigidbody2D>();
+        CollisionData = new CollisionData();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        
+        RigidBody.velocity = GetUpdatedVelocity();
+        CyclicAttack();
     }
 
     protected abstract Vector3 GetUpdatedVelocity();
 
     protected abstract void OnCollisionEnter2D(Collision2D other);
+
+    protected abstract void OnCollisionExit2D(Collision2D other);
+
+    protected void CyclicAttack()
+    {
+        if (CollisionData.IsInCollision() && !IsAttacking)
+        {
+            StartPerformingAttacks();
+        }
+        else if(!CollisionData.IsInCollision() && IsAttacking)
+        {
+            StopPerformingAttacks();
+        }
+    }
+
+    private void StartPerformingAttacks()
+    {
+        IsAttacking = true;
+        InvokeRepeating("PerformAttack", 0f, 1f / AttackSpeed);
+    }
+
+    private void StopPerformingAttacks()
+    {
+        IsAttacking = false;
+        CancelInvoke("PerformAttack");
+    }
+
+    protected void PerformAttack()
+    {
+        if (CollisionData.GetColliderGameObjectTag() == "Player")
+        {
+            var player = CollisionData.GetGameObject().GetComponent<Attackable>();
+            GiveDamage(player, Damage);
+        }
+    }
 
     protected double CalculateDistanceFromTarget()
     {
@@ -59,4 +102,5 @@ public abstract class Enemy : MonoBehaviour, Attackable
     {
         InitHealth -= damage;
     }
+
 }

@@ -16,7 +16,7 @@ public class Slime : Enemy
     protected override void Update()
     {
         base.Update();
-        RigidBody.velocity = GetUpdatedVelocity();
+        
     }
 
     protected override Vector3 GetUpdatedVelocity()
@@ -24,7 +24,7 @@ public class Slime : Enemy
         double distance = CalculateDistanceFromTarget();
         if  (distance > MaxDistanceFromTargetToMove)
         {
-            return new Vector3(0f, 0f, 0f);
+            return Vector3.zero;
         }
         var newVelocity = CalculateVelocityToTarget().normalized;
         newVelocity *= MoveSpeed;
@@ -33,11 +33,11 @@ public class Slime : Enemy
 
     protected override void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            var player = other.gameObject.GetComponent<Attackable>();
-            player.TakeDamage(Damage);
-        }
+        CollisionData.ActivateCollision(other);
     }
 
+    protected override void OnCollisionExit2D(Collision2D other)
+    {
+        CollisionData.DeactivateCurrentCollision();
+    }
 }

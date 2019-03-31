@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 449716755}
   - component: {fileID: 449716757}
   - component: {fileID: 449716758}
+  - component: {fileID: 449716761}
   - component: {fileID: 449716759}
   - component: {fileID: 449716760}
   m_Layer: 0
@@ -667,7 +668,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449716754}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -691,8 +692,8 @@ MonoBehaviour:
   InitHealth: 30
   Damage: 5
   MoveSpeed: 0.5
+  AttackSpeed: 0.33
   TargetToFollow: {fileID: 1066225734}
-  MinDistanceFromTargetToMove: 0
   MaxDistanceFromTargetToMove: 8
 --- !u!50 &449716760
 Rigidbody2D:
@@ -712,9 +713,35 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &449716761
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449716754}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.01917994, y: -0.35802376}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.2307693, y: 1.2307693}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.51472163, y: 0.43800187}
+  m_EdgeRadius: 0
 --- !u!1 &508511416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1426,16 @@ PrefabInstance:
       propertyPath: Damage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4032197862414973845, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: Health
+      value: 
+      objectReference: {fileID: 81253774}
+    - target: {fileID: 4032197862414973845, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: Mana
+      value: 
+      objectReference: {fileID: 123825792}
     - target: {fileID: 1066225737, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
       propertyPath: health
       value: 
@@ -1410,6 +1447,24 @@ PrefabInstance:
     - target: {fileID: 4032197862414973840, guid: 1bb7c122a994b004aa001ecb2fceebba,
         type: 3}
       propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032197862414973840, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5506171
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032197862414973840, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.35876584
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066225739, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066225739, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
+      propertyPath: m_SleepingMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
