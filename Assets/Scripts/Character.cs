@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour, Attackable
 {
     [SerializeField]
     protected Stat health;
@@ -108,6 +108,11 @@ public abstract class Character : MonoBehaviour
             isAttacking = false;
             animator.SetBool("attack", isAttacking);
         }
+    }
+
+    public void GiveDamage(Attackable target, float damage)
+    {
+        target.TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)

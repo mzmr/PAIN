@@ -673,7 +673,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.09}
+  m_Offset: {x: 0, y: -0.19}
   serializedVersion: 2
   m_Radius: 0.34
 --- !u!114 &449716759
@@ -692,7 +692,7 @@ MonoBehaviour:
   Damage: 5
   MoveSpeed: 0.5
   TargetToFollow: {fileID: 1066225734}
-  MinDistanceFromTargetToMove: 0.5
+  MinDistanceFromTargetToMove: 0
   MaxDistanceFromTargetToMove: 8
 --- !u!50 &449716760
 Rigidbody2D:
@@ -1407,6 +1407,11 @@ PrefabInstance:
       propertyPath: mana
       value: 
       objectReference: {fileID: 123825792}
+    - target: {fileID: 4032197862414973840, guid: 1bb7c122a994b004aa001ecb2fceebba,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1066225737, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bb7c122a994b004aa001ecb2fceebba, type: 3}

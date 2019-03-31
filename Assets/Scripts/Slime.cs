@@ -22,7 +22,7 @@ public class Slime : Enemy
     protected override Vector3 GetUpdatedVelocity()
     {
         double distance = CalculateDistanceFromTarget();
-        if (distance < MinDistanceFromTargetToMove || MaxDistanceFromTargetToMove < distance)
+        if  (distance > MaxDistanceFromTargetToMove)
         {
             return new Vector3(0f, 0f, 0f);
         }
@@ -39,4 +39,14 @@ public class Slime : Enemy
             player.TakeDamage(Damage);
         }
     }
+
+    void OnCollisionStay(Collision collisionInfo)
+    {
+        if (collisionInfo.gameObject.tag == "Player")
+        {
+            var player = collisionInfo.gameObject.GetComponent<Attackable>();
+            player.TakeDamage(Damage);
+        }
+    }
+
 }
