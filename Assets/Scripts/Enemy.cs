@@ -13,18 +13,14 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     public GameObject TargetToFollow;
 
-    public double MinDistanceFromTargetToMove;
-
     public double MaxDistanceFromTargetToMove;
 
-    protected Rigidbody2D rigidBody;
-
-    protected double distanceFromTarget;
+    protected Rigidbody2D RigidBody;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        rigidBody = GetComponent<Rigidbody2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

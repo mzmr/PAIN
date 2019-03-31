@@ -6,38 +6,38 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour, Attackable
 {
     [SerializeField]
-    protected Stat health;
+    protected Stat Health;
 
     [SerializeField]
-    protected Stat mana;
+    protected Stat Mana;
 
     [SerializeField]
     private float speed;
 
     public float Damage;
 
-    protected Vector2 direction;
+    protected Vector2 Direction;
 
-    protected Vector2 lastDirection;
+    protected Vector2 LastDirection;
 
-    protected Animator animator;
+    protected Animator Animator;
 
     private Rigidbody2D rigidBody;
 
-    protected bool isAttacking = false;
+    protected bool IsAttacking = false;
 
-    protected Coroutine attackRoutine;
+    protected Coroutine AttackRoutine;
 
     public bool IsMoving
     {
-        get => direction.x != 0 || direction.y != 0;
+        get => Math.Abs(Direction.x) > 0.1 || Math.Abs(Direction.y) > 0.1;
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -54,20 +54,20 @@ public abstract class Character : MonoBehaviour, Attackable
 
     public void Move()
     {
-        rigidBody.velocity = direction.normalized * speed;
+        rigidBody.velocity = Direction.normalized * speed;
     }
 
     private void MoveWhileAttacking()
     {
-        if (isAttacking)
+        if (IsAttacking)
         {
-            direction = lastDirection;
+            Direction = LastDirection;
         }
     }
 
     public void HandleLayers()
     {
-        if (isAttacking)
+        if (IsAttacking)
         {
             ActivateLayer("AttackLayer");
         }
@@ -75,8 +75,8 @@ public abstract class Character : MonoBehaviour, Attackable
         {
             ActivateLayer("WalkLayer");
 
-            animator.SetFloat("x", direction.x);
-            animator.SetFloat("y", direction.y);
+            Animator.SetFloat("x", Direction.x);
+            Animator.SetFloat("y", Direction.y);
         }
         else
         {
@@ -86,27 +86,27 @@ public abstract class Character : MonoBehaviour, Attackable
 
     public void ActivateLayer(string layerName)
     {
-        for (int i = 0; i < animator.layerCount; ++i)
+        for (int i = 0; i < Animator.layerCount; ++i)
         {
-            animator.SetLayerWeight(i, 0);
+            Animator.SetLayerWeight(i, 0);
         }
 
-        animator.SetLayerWeight(animator.GetLayerIndex(layerName), 1);
+        Animator.SetLayerWeight(Animator.GetLayerIndex(layerName), 1);
     }
 
     public void StartAttack()
     {
-        isAttacking = true;
-        animator.SetBool("attack", isAttacking);
+        IsAttacking = true;
+        Animator.SetBool("attack", IsAttacking);
     }
 
     public void StopAttack()
     {
-        if (attackRoutine != null)
+        if (AttackRoutine != null)
         {
-            StopCoroutine(attackRoutine);
-            isAttacking = false;
-            animator.SetBool("attack", isAttacking);
+            StopCoroutine(AttackRoutine);
+            IsAttacking = false;
+            Animator.SetBool("attack", IsAttacking);
         }
     }
 
@@ -117,6 +117,6 @@ public abstract class Character : MonoBehaviour, Attackable
 
     public void TakeDamage(float damage)
     {
-        health.CurrentValue -= damage;
+        Health.CurrentValue -= damage;
     }
 }

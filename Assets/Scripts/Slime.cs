@@ -16,7 +16,7 @@ public class Slime : Enemy
     protected override void Update()
     {
         base.Update();
-        rigidBody.velocity = GetUpdatedVelocity();
+        RigidBody.velocity = GetUpdatedVelocity();
     }
 
     protected override Vector3 GetUpdatedVelocity()
@@ -35,16 +35,7 @@ public class Slime : Enemy
     {
         if (other.gameObject.tag == "Player")
         {
-            var player = other.gameObject.GetComponent<Player>();
-            player.TakeDamage(Damage);
-        }
-    }
-
-    void OnCollisionStay(Collision collisionInfo)
-    {
-        if (collisionInfo.gameObject.tag == "Player")
-        {
-            var player = collisionInfo.gameObject.GetComponent<Attackable>();
+            var player = other.gameObject.GetComponent<Attackable>();
             player.TakeDamage(Damage);
         }
     }

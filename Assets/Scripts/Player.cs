@@ -12,8 +12,8 @@ public class Player : Character
     // Start is called before the first frame update
     protected override void Start()
     {
-        health.Initialize(initHealth, initHealth);
-        mana.Initialize(initMana, initMana);
+        Health.Initialize(initHealth, initHealth);
+        Mana.Initialize(initMana, initMana);
         base.Start();
     }
 
@@ -28,44 +28,44 @@ public class Player : Character
     {
         if (IsMoving)
         {
-            lastDirection = direction;
+            LastDirection = Direction;
         }
 
-        direction = Vector2.zero;
+        Direction = Vector2.zero;
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            health.CurrentValue -= 10;
-            mana.CurrentValue -= 10;
+            Health.CurrentValue -= 10;
+            Mana.CurrentValue -= 10;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            health.CurrentValue += 10;
-            mana.CurrentValue += 10;
+            Health.CurrentValue += 10;
+            Mana.CurrentValue += 10;
         }
 
-        if (!isAttacking)
+        if (!IsAttacking)
         {
             if (Input.GetKey(KeyCode.W))
             {
-                direction += Vector2.up;
+                Direction += Vector2.up;
             }
             if (Input.GetKey(KeyCode.S))
             {
-                direction += Vector2.down;
+                Direction += Vector2.down;
             }
             if (Input.GetKey(KeyCode.A))
             {
-                direction += Vector2.left;
+                Direction += Vector2.left;
             }
             if (Input.GetKey(KeyCode.D))
             {
-                direction += Vector2.right;
+                Direction += Vector2.right;
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                attackRoutine = StartCoroutine(Attack());
+                AttackRoutine = StartCoroutine(Attack());
             }
         }
     }
@@ -77,8 +77,4 @@ public class Player : Character
         StopAttack();
     }
 
-    public void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-    }
 }
