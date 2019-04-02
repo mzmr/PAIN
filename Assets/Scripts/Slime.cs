@@ -6,6 +6,8 @@ using UnityEngine;
 public class Slime : Enemy
 {
 
+    public GameObject DamageBurst;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -29,6 +31,12 @@ public class Slime : Enemy
         var newVelocity = CalculateVelocityToTarget().normalized;
         newVelocity *= MoveSpeed;
         return newVelocity;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        Instantiate(DamageBurst, transform.position, transform.rotation);
     }
 
 }

@@ -118,7 +118,7 @@ public abstract class Enemy : MonoBehaviour, Attackable
         target.TakeDamage(damage);
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         Health -= damage;
     }
