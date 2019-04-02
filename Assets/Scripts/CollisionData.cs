@@ -26,7 +26,7 @@ public class CollisionData
         return collision != null;
     }
 
-    public string GetColliderGameObjectTag()
+    public string GetGameObjectTag()
     {
         return collision.gameObject.tag;
     }
@@ -35,4 +35,15 @@ public class CollisionData
     {
         return Collision.gameObject;
     }
+
+    public GameObject GetOtherColliderGameObject()
+    {
+        return collision.otherCollider.gameObject;
+    }
+
+    public string GetOtherColliderGameObjectTag()
+    {
+        return collision.otherCollider.gameObject.tag;
+    }
+
 }

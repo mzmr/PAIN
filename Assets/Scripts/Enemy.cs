@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, Attackable
 {
-    public float InitHealth;
+    public float Health;
 
     public float Damage;
 
@@ -35,13 +35,20 @@ public abstract class Enemy : MonoBehaviour, Attackable
     {
         RigidBody.velocity = GetUpdatedVelocity();
         CyclicAttack();
+        
     }
 
     protected abstract Vector3 GetUpdatedVelocity();
 
-    protected abstract void OnCollisionEnter2D(Collision2D other);
+    protected void OnCollisionEnter2D(Collision2D other)
+    {
+        CollisionData.ActivateCollision(other);
+    }
 
-    protected abstract void OnCollisionExit2D(Collision2D other);
+    protected void OnCollisionExit2D(Collision2D other)
+    {
+        CollisionData.DeactivateCurrentCollision();
+    }
 
     protected void CyclicAttack()
     {
@@ -69,7 +76,7 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     protected void PerformAttack()
     {
-        if (CollisionData.GetColliderGameObjectTag() == "Player")
+        if (CollisionData.GetGameObjectTag() == "Player")
         {
             var player = CollisionData.GetGameObject().GetComponent<Attackable>();
             GiveDamage(player, Damage);
@@ -100,7 +107,7 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     public void TakeDamage(float damage)
     {
-        InitHealth -= damage;
+        Health -= damage;
     }
 
 }

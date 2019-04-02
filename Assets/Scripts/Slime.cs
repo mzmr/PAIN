@@ -31,13 +31,4 @@ public class Slime : Enemy
         return newVelocity;
     }
 
-    protected override void OnCollisionEnter2D(Collision2D other)
-    {
-        CollisionData.ActivateCollision(other);
-    }
-
-    protected override void OnCollisionExit2D(Collision2D other)
-    {
-        CollisionData.DeactivateCurrentCollision();
-    }
 }

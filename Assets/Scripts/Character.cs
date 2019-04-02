@@ -28,6 +28,8 @@ public abstract class Character : MonoBehaviour, Attackable
 
     protected Coroutine AttackRoutine;
 
+    protected CollisionData CollisionData;
+
     public bool IsMoving
     {
         get => Math.Abs(Direction.x) > 0.1 || Math.Abs(Direction.y) > 0.1;
@@ -38,6 +40,7 @@ public abstract class Character : MonoBehaviour, Attackable
     {
         rigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        CollisionData = new CollisionData();
     }
 
     // Update is called once per frame
@@ -98,6 +101,18 @@ public abstract class Character : MonoBehaviour, Attackable
     {
         IsAttacking = true;
         Animator.SetBool("attack", IsAttacking);
+        AttackEnemy();
+    }
+
+    protected void AttackEnemy()
+    {
+        if (!CollisionData.IsInCollision()) 
+            return;
+        if (CollisionData.GetOtherColliderGameObjectTag() == "Enemy")
+        {
+            var enemy = CollisionData.GetOtherColliderGameObject().GetComponent<Attackable>();
+            GiveDamage(enemy, Damage);
+        }
     }
 
     public void StopAttack()
@@ -119,4 +134,15 @@ public abstract class Character : MonoBehaviour, Attackable
     {
         Health.CurrentValue -= damage;
     }
+
+    protected void OnCollisionEnter2D(Collision2D other)
+    {
+        CollisionData.ActivateCollision(other);
+    }
+
+    protected void OnCollisionExit2D(Collision2D other)
+    {
+        CollisionData.DeactivateCurrentCollision();
+    }
+
 }
