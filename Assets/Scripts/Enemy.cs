@@ -76,7 +76,7 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     protected void PerformAttack()
     {
-        if (CollisionData.GetGameObjectTag() == "Player")
+        if (CollisionData.GetGameObjectTag().ToLower() == "player")
         {
             var player = CollisionData.GetGameObject().GetComponent<Attackable>();
             GiveDamage(player, Damage);

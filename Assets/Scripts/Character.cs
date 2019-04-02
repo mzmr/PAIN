@@ -108,7 +108,7 @@ public abstract class Character : MonoBehaviour, Attackable
     {
         if (!CollisionData.IsInCollision()) 
             return;
-        if (CollisionData.GetOtherColliderGameObjectTag() == "Enemy")
+        if (CollisionData.GetOtherColliderGameObjectTag().ToLower() == "enemy")
         {
             var enemy = CollisionData.GetOtherColliderGameObject().GetComponent<Attackable>();
             GiveDamage(enemy, Damage);
