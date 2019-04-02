@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, Attackable
     {
         RigidBody.velocity = GetUpdatedVelocity();
         CyclicAttack();
-        
+        CheckHealth();
     }
 
     protected abstract Vector3 GetUpdatedVelocity();
@@ -81,6 +81,19 @@ public abstract class Enemy : MonoBehaviour, Attackable
             var player = CollisionData.GetGameObject().GetComponent<Attackable>();
             GiveDamage(player, Damage);
         }
+    }
+
+    private void CheckHealth()
+    {
+        if (Health <= 0)
+        {
+            EnemyDeadAction();
+        }
+    }
+
+    protected void EnemyDeadAction()
+    {
+        Destroy(gameObject);
     }
 
     protected double CalculateDistanceFromTarget()
