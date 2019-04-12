@@ -85,24 +85,24 @@ public class LevelManager : MonoBehaviour
         foreach (KeyValuePair<Point, GameObject> tile in waterTiles)
         {
             string composition = TileCheck(tile.Key);
-            List<TileAssign> waterBorders = new List<TileAssign>
+            List<TileAssignn> waterBorders = new List<TileAssignn>
             {
                 // E - earth, W - water
-                new TileAssign(2457, "EWEW", "water_border_top_left_oblique"),
-                new TileAssign(2457, "WWEW", "water_border_top"),
-                new TileAssign(2457, "WWEE", "water_border_top_right_oblique"),
-                new TileAssign(2457, "EWWW", "water_border_left"),
-                new TileAssign(2457, "WWWE", "water_border_right"),
-                new TileAssign(2457, "EEWW", "water_border_bottom_left_oblique"),
-                new TileAssign(2457, "WEWW", "water_border_bottom"),
-                new TileAssign(2457, "WEWE", "water_border_bottom_right_oblique"),
-                new TileAssign(2457, "WEEE", "water_border_right_top_bottom_oblique"),
-                new TileAssign(2457, "EEEW", "water_border_left_top_bottom_oblique"),
-                new TileAssign(2457, "WEEW", "water_border_top_bottom"),
-                new TileAssign(2457, "EWWE", "water_border_left_right"),
-                new TileAssign(2457, "EEWE", "water_border_bottom_left_right_oblique"),
-                new TileAssign(2457, "EWEE", "water_border_top_left_right_oblique"),
-                new TileAssign(2457, "EEEE", "water_border_all")
+                new TileAssignn(2457, "EWEW", "water_border_top_left_oblique"),
+                new TileAssignn(2457, "WWEW", "water_border_top"),
+                new TileAssignn(2457, "WWEE", "water_border_top_right_oblique"),
+                new TileAssignn(2457, "EWWW", "water_border_left"),
+                new TileAssignn(2457, "WWWE", "water_border_right"),
+                new TileAssignn(2457, "EEWW", "water_border_bottom_left_oblique"),
+                new TileAssignn(2457, "WEWW", "water_border_bottom"),
+                new TileAssignn(2457, "WEWE", "water_border_bottom_right_oblique"),
+                new TileAssignn(2457, "WEEE", "water_border_right_top_bottom_oblique"),
+                new TileAssignn(2457, "EEEW", "water_border_left_top_bottom_oblique"),
+                new TileAssignn(2457, "WEEW", "water_border_top_bottom"),
+                new TileAssignn(2457, "EWWE", "water_border_left_right"),
+                new TileAssignn(2457, "EEWE", "water_border_bottom_left_right_oblique"),
+                new TileAssignn(2457, "EWEE", "water_border_top_left_right_oblique"),
+                new TileAssignn(2457, "EEEE", "water_border_all")
             };
 
             foreach (var t in waterBorders)
@@ -116,12 +116,12 @@ public class LevelManager : MonoBehaviour
                 }
             }
 
-            List<TileAssign> waterReflexBorders = new List<TileAssign>
+            List<TileAssignn> waterReflexBorders = new List<TileAssignn>
             {
-                new TileAssign(235, "WEW", "water_border_top_left_reflex"),
-                new TileAssign(467, "WEW", "water_border_bottom_right_reflex"),
-                new TileAssign(578, "WWE", "water_border_top_right_reflex"),
-                new TileAssign(124, "EWW", "water_border_bottom_left_reflex")
+                new TileAssignn(235, "WEW", "water_border_top_left_reflex"),
+                new TileAssignn(467, "WEW", "water_border_bottom_right_reflex"),
+                new TileAssignn(578, "WWE", "water_border_top_right_reflex"),
+                new TileAssignn(124, "EWW", "water_border_bottom_left_reflex")
             };
 
             foreach (var t in waterReflexBorders)
@@ -205,13 +205,13 @@ public struct Point
     }
 }
 
-public struct TileAssign
+public struct TileAssignn
 {
     public int Ids { get; set; }
     public string States { get; set; }
     public string Image { get; set; }
 
-    public TileAssign(int ids, string states, string image)
+    public TileAssignn(int ids, string states, string image)
     {
         this.Ids = ids;
         this.States = states;
