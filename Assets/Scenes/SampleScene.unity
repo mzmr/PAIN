@@ -443,11 +443,17 @@ MonoBehaviour:
     color: {r: 0.44313726, g: 0.28627452, b: 0.4862745, a: 1}
     elementPrefab: {fileID: 6457724467615504173, guid: 7525a4cf5557c5c49874a10630e37e14,
       type: 3}
+  - tileTag: Water
+    color: {r: 0, g: 0, b: 1, a: 1}
+    elementPrefab: {fileID: 6465064130933461351, guid: 1251500f4c8a94944b07a4f92af1b123,
+      type: 3}
   - tileTag: Trees - TallTriangleBrown
     color: {r: 0.6745098, g: 0.28627452, b: 0.105882354, a: 1}
     elementPrefab: {fileID: 3375046140988640977, guid: 50f862ab1c2372241bc874701b0149f3,
       type: 3}
   defaultTile: {fileID: 21300000, guid: 9a5cd2265c6dec3409079a6ef156b6f9, type: 3}
+  waterAtlas: {fileID: 4343727234628468602, guid: 7c78bc475c2fc2840afcbbc717655bcf,
+    type: 2}
 --- !u!1 &314445200
 GameObject:
   m_ObjectHideFlags: 0
