@@ -36,6 +36,7 @@ public class WaterTile : TileBase
     public override void GetTileData(Vector3Int location, ITilemap tileMap, ref TileData tileData)
     {
         base.GetTileData(location, tileMap, ref tileData);
+        tileData.colliderType = Tile.ColliderType.Sprite;
 
         string composition = string.Empty;
 
