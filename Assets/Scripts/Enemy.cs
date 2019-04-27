@@ -76,9 +76,10 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     protected void PerformAttack()
     {
-        if (CollisionData.GetGameObjectTag().ToLower() == "player")
+        var collidingObject = CollisionData.GetCollidingGameObject(gameObject);
+        if (collidingObject.tag.ToLower() == "player")
         {
-            var player = CollisionData.GetGameObject().GetComponent<Attackable>();
+            var player = collidingObject.GetComponent<Attackable>();
             GiveDamage(player, Damage);
         }
     }
@@ -121,6 +122,19 @@ public abstract class Enemy : MonoBehaviour, Attackable
     public virtual void TakeDamage(float damage)
     {
         Health -= damage;
+    }
+
+    protected Vector3 GetFollowTargetVelocity()
+    {
+        double distance = CalculateDistanceFromTarget();
+        if (distance > MaxDistanceFromTargetToMove)
+        {
+            return Vector3.zero;
+        }
+
+        var newVelocity = CalculateVelocityToTarget().normalized;
+        newVelocity *= MoveSpeed;
+        return newVelocity;
     }
 
 }

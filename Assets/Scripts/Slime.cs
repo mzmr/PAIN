@@ -18,19 +18,11 @@ public class Slime : Enemy
     protected override void Update()
     {
         base.Update();
-        
     }
 
     protected override Vector3 GetUpdatedVelocity()
     {
-        double distance = CalculateDistanceFromTarget();
-        if  (distance > MaxDistanceFromTargetToMove)
-        {
-            return Vector3.zero;
-        }
-        var newVelocity = CalculateVelocityToTarget().normalized;
-        newVelocity *= MoveSpeed;
-        return newVelocity;
+        return GetFollowTargetVelocity();
     }
 
     public override void TakeDamage(float damage)

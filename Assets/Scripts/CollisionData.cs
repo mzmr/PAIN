@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,24 +27,55 @@ public class CollisionData
         return collision != null;
     }
 
-    public string GetGameObjectTag()
+    private string GetGameObjectTag()
     {
         return collision.gameObject.tag;
     }
 
-    public GameObject GetGameObject()
+    private GameObject GetGameObject()
     {
         return Collision.gameObject;
     }
 
-    public GameObject GetOtherColliderGameObject()
+    private GameObject GetOtherColliderGameObject()
     {
         return collision.otherCollider.gameObject;
     }
 
-    public string GetOtherColliderGameObjectTag()
+    private string GetOtherColliderGameObjectTag()
     {
         return collision.otherCollider.gameObject.tag;
+    }
+
+    public bool DifferentColliders()
+    {
+        return GetGameObjectTag() != GetOtherColliderGameObjectTag();
+    }
+
+    public string GetCollidingGameObjectTag(GameObject gameObject)
+    {
+        if (gameObject.tag == GetGameObjectTag())
+        {
+            return GetOtherColliderGameObjectTag();
+        }
+        else if(gameObject.tag == GetOtherColliderGameObjectTag())
+        {
+            return GetGameObjectTag();
+        }
+        return "";
+    }
+
+    public GameObject GetCollidingGameObject(GameObject thisGameObject)
+    {
+        if (thisGameObject.tag == GetGameObjectTag())
+        {
+            return GetOtherColliderGameObject();
+        }
+        else if (thisGameObject.tag == GetOtherColliderGameObjectTag())
+        {
+            return GetGameObject();
+        }
+        return null;
     }
 
 }
