@@ -19,4 +19,21 @@ public class MoneyManager : MonoBehaviour
     {
         MoneyText.text = CurrentGoldAmount.ToString();
     }
+
+    public void AddMoney(int goldToAdd)
+    {
+        CurrentGoldAmount += goldToAdd;
+    }
+
+    public bool SubtractMoney(int goldToSubtract)
+    {
+        if (goldToSubtract > CurrentGoldAmount)
+        {
+            return false;
+        }
+
+        CurrentGoldAmount -= goldToSubtract;
+        return true;
+    }
+
 }
