@@ -17,6 +17,8 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     public double MaxDistanceFromTargetToMove;
 
+    public List<GameObject> Loot;
+
     protected Rigidbody2D RigidBody;
 
     protected CollisionData CollisionData;
@@ -76,8 +78,16 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     protected void PerformAttack()
     {
+        if (!CollisionData.IsInCollision())
+        {
+            return;
+        }
         var collidingObject = CollisionData.GetCollidingGameObject(gameObject);
-        if (collidingObject.tag.ToLower() == "player")
+        if (collidingObject == null)
+        {
+            return;
+        }
+        if (collidingObject.tag != null && collidingObject.tag.ToLower() == "player")
         {
             var player = collidingObject.GetComponent<Attackable>();
             GiveDamage(player, Damage);
@@ -95,6 +105,15 @@ public abstract class Enemy : MonoBehaviour, Attackable
     protected void EnemyDeadAction()
     {
         Destroy(gameObject);
+        DropLoot();
+    }
+
+    protected void DropLoot()
+    {
+        foreach (GameObject o in Loot)
+        {
+            Instantiate(o, transform.position, transform.rotation);
+        }
     }
 
     protected double CalculateDistanceFromTarget()
