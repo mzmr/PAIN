@@ -142,6 +142,11 @@ public abstract class Character : MonoBehaviour, Attackable
         Health.CurrentValue -= damage;
     }
 
+    public void AddHealth(int health)
+    {
+        health += health;
+    }
+
     protected void OnCollisionEnter2D(Collision2D other)
     {
         CollisionData.ActivateCollision(other);

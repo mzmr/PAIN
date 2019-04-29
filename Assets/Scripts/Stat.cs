@@ -9,7 +9,7 @@ public class Stat : MonoBehaviour
     private Image content;
 
     [SerializeField]
-    private Text statValue;
+    public Text statValue;
 
     private float currentFill;
     private float currentValue;
@@ -39,17 +39,16 @@ public class Stat : MonoBehaviour
     }
 
     [SerializeField]
-    private float lerpSpeed;
+    public float lerpSpeed;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        MyMaxValue = 100;
         content = GetComponent<Image>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (currentFill != content.fillAmount)
         {

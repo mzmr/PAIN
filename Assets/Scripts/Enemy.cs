@@ -112,7 +112,10 @@ public abstract class Enemy : MonoBehaviour, Attackable
     {
         foreach (GameObject o in Loot)
         {
-            Instantiate(o, transform.position, transform.rotation);
+            if (o != null)
+            {
+                Instantiate(o, transform.position, transform.rotation);
+            }
         }
     }
 
