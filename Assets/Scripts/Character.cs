@@ -144,7 +144,7 @@ public abstract class Character : MonoBehaviour, Attackable
 
     public void AddHealth(int health)
     {
-        health += health;
+        Health.CurrentValue += health;
     }
 
     protected void OnCollisionEnter2D(Collision2D other)
