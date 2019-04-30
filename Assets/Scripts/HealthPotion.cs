@@ -6,11 +6,12 @@ public class HealthPotion : Pickable
 {
 
     public int PotionValue;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        player = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class HealthPotion : Pickable
         {
             return;
         }
+        player.AddHealth(PotionValue);
         Destroy(gameObject);
     }
 }
