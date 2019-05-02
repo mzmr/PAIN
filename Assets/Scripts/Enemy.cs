@@ -3,14 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, Attackable
+public abstract class Enemy : Character, Attackable
 {
-    public float Health;
-
-    public float Damage;
-
-    public float MoveSpeed;
-
     public float AttackSpeed;
 
     public GameObject TargetToFollow;
@@ -19,37 +13,13 @@ public abstract class Enemy : MonoBehaviour, Attackable
 
     public List<GameObject> Loot;
 
-    protected Rigidbody2D RigidBody;
-
-    protected CollisionData CollisionData;
-
-    protected bool IsAttacking = false;
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        RigidBody = GetComponent<Rigidbody2D>();
-        CollisionData = new CollisionData();
-    }
-
     // Update is called once per frame
-    protected virtual void Update()
+    protected override void Update()
     {
-        RigidBody.velocity = GetUpdatedVelocity();
+        SetMovementDirection();
         CyclicAttack();
         CheckHealth();
-    }
-
-    protected abstract Vector3 GetUpdatedVelocity();
-
-    protected void OnCollisionEnter2D(Collision2D other)
-    {
-        CollisionData.ActivateCollision(other);
-    }
-
-    protected void OnCollisionExit2D(Collision2D other)
-    {
-        CollisionData.DeactivateCurrentCollision();
+        base.Update();
     }
 
     protected void CyclicAttack()
@@ -76,27 +46,9 @@ public abstract class Enemy : MonoBehaviour, Attackable
         CancelInvoke("PerformAttack");
     }
 
-    protected void PerformAttack()
-    {
-        if (!CollisionData.IsInCollision())
-        {
-            return;
-        }
-        var collidingObject = CollisionData.GetCollidingGameObject(gameObject);
-        if (collidingObject == null)
-        {
-            return;
-        }
-        if (collidingObject.tag != null && collidingObject.tag.ToLower() == "player")
-        {
-            var player = collidingObject.GetComponent<Attackable>();
-            GiveDamage(player, Damage);
-        }
-    }
-
     private void CheckHealth()
     {
-        if (Health <= 0)
+        if (Health.CurrentValue <= 0)
         {
             EnemyDeadAction();
         }
@@ -127,36 +79,42 @@ public abstract class Enemy : MonoBehaviour, Attackable
         );
     }
 
-    protected Vector3 CalculateVelocityToTarget()
+    private Vector2 CalculateVectorToTarget()
     {
-        return new Vector3(
+        return new Vector2(
             TargetToFollow.transform.position.x - transform.position.x,
-            TargetToFollow.transform.position.y - transform.position.y,
-            0f
+            TargetToFollow.transform.position.y - transform.position.y
         );
     }
 
-    public void GiveDamage(Attackable target, float damage)
+    protected void SetMovementDirection()
     {
-        target.TakeDamage(damage);
-    }
-
-    public virtual void TakeDamage(float damage)
-    {
-        Health -= damage;
-    }
-
-    protected Vector3 GetFollowTargetVelocity()
-    {
-        double distance = CalculateDistanceFromTarget();
-        if (distance > MaxDistanceFromTargetToMove)
+        if (CalculateDistanceFromTarget() > MaxDistanceFromTargetToMove)
         {
-            return Vector3.zero;
+            Direction = Vector2.zero;
         }
+        else
+        {
+            Vector2 d = CalculateVectorToTarget();
 
-        var newVelocity = CalculateVelocityToTarget().normalized;
-        newVelocity *= MoveSpeed;
-        return newVelocity;
+            if (IsRunningAway())
+            {
+                Direction = new Vector2(-d.x, -d.y).normalized;
+            }
+            else
+            {
+                Direction = d.normalized;
+            }
+        }
     }
 
+    protected override string getEnemyTag()
+    {
+        return "player";
+    }
+
+    protected virtual bool IsRunningAway()
+    {
+        return false;
+    }
 }

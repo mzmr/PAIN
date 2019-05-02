@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class Player : Character
 {
+    [SerializeField]
+    protected Stat Mana;
 
-    private float initHealth = 100;
+    private const float initHealth = 100;
+    private const float initMana = 50;
+    private const string IDLE_LAYER = "IdleLayer";
+    private const string MOVE_LAYER = "WalkLayer";
+    private const string ATTACK_LAYER = "AttackLayer";
 
-    private float initMana = 50;
+    private Vector2 LastDirection;
+
+    protected Coroutine AttackRoutine;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        Health.Initialize(initHealth, initHealth);
         Mana.Initialize(initMana, initMana);
         base.Start();
     }
@@ -22,6 +29,7 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
+        MoveWhileAttacking();
         base.Update();
     }
 
@@ -78,5 +86,53 @@ public class Player : Character
         StopAttack();
     }
 
-    
+    private void StartAttack()
+    {
+        IsAttacking = true;
+        Animator.SetBool("attack", IsAttacking);
+        PerformAttack();
+    }
+
+    private void StopAttack()
+    {
+        if (AttackRoutine != null)
+        {
+            StopCoroutine(AttackRoutine);
+            IsAttacking = false;
+            Animator.SetBool("attack", IsAttacking);
+        }
+    }
+
+    private void MoveWhileAttacking()
+    {
+        if (IsAttacking)
+        {
+            Direction = LastDirection;
+        }
+    }
+
+    protected override string getEnemyTag()
+    {
+        return "enemy";
+    }
+
+    protected override float getInitHealth()
+    {
+        return initHealth;
+    }
+
+    protected override string getIdleLayerName()
+    {
+        return IDLE_LAYER;
+    }
+
+    protected override string getMoveLayerName()
+    {
+        return MOVE_LAYER;
+    }
+
+    protected override string getAttackLayerName()
+    {
+        return ATTACK_LAYER;
+    }
 }

@@ -5,30 +5,29 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
+    private const float initHealth = 20;
+    private const string IDLE_LAYER = "Base Layer";
+    private const string MOVE_LAYER = "Base Layer";
+    private const string ATTACK_LAYER = "Base Layer";
 
-    public GameObject DamageBurst;
-
-    // Start is called before the first frame update
-    protected override void Start()
+    protected override string getAttackLayerName()
     {
-        base.Start();
+        return ATTACK_LAYER;
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    protected override string getIdleLayerName()
     {
-        base.Update();
+        return IDLE_LAYER;
     }
 
-    protected override Vector3 GetUpdatedVelocity()
+    protected override string getMoveLayerName()
     {
-        return GetFollowTargetVelocity();
+        return MOVE_LAYER;
     }
 
-    public override void TakeDamage(float damage)
+    protected override float getInitHealth()
     {
-        base.TakeDamage(damage);
-        Instantiate(DamageBurst, transform.position, transform.rotation);
+        return initHealth;
     }
 
 }
