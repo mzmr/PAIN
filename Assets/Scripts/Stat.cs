@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Stat : MonoBehaviour
 {
-
     private Image content;
 
     [SerializeField]
     public Text statValue;
+
+    [SerializeField]
+    private GameObject fill;
 
     private float currentFill;
     private float currentValue;
@@ -35,7 +37,11 @@ public class Stat : MonoBehaviour
             }
 
             currentFill = currentValue / MyMaxValue;
-            statValue.text = currentValue + "/" + MyMaxValue;
+
+            if (statValue != null)
+            {
+                statValue.text = currentValue + "/" + MyMaxValue;
+            }
         }
     }
 
@@ -51,9 +57,19 @@ public class Stat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentFill != content.fillAmount)
+        if (statValue != null)
         {
-            content.fillAmount = Mathf.Lerp(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
+            if (currentFill != content.fillAmount)
+            {
+                content.fillAmount = Mathf.Lerp(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
+            }
+        }
+
+        if (fill != null)
+        {
+            var newScale = fill.transform.localScale;
+            newScale.x = Mathf.Lerp(newScale.x, currentFill, Time.deltaTime * lerpSpeed);
+            fill.transform.localScale = newScale;
         }
     }
 

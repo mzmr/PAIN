@@ -9,24 +9,19 @@ public abstract class Character : MonoBehaviour, Attackable
     protected Stat Health;
 
     [SerializeField]
-    protected Stat Mana;
-
-    [SerializeField]
-    private float speed;
+    protected float speed; //change to private
 
     public float Damage;
 
-    protected Vector2 Direction;
+    public GameObject DamageBurst;
 
-    protected Vector2 LastDirection;
+    protected Vector2 Direction;
 
     protected Animator Animator;
 
-    private Rigidbody2D rigidBody;
+    protected Rigidbody2D rigidBody; //change to private
 
     protected bool IsAttacking = false;
-
-    protected Coroutine AttackRoutine;
 
     protected CollisionData CollisionData;
 
@@ -35,9 +30,16 @@ public abstract class Character : MonoBehaviour, Attackable
         get => Math.Abs(Direction.x) > 0.1 || Math.Abs(Direction.y) > 0.1;
     }
 
+    protected abstract string getEnemyTag();
+    protected abstract float getInitHealth();
+    protected abstract string getIdleLayerName();
+    protected abstract string getMoveLayerName();
+    protected abstract string getAttackLayerName();
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        Health.Initialize(getInitHealth(), getInitHealth());
         rigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         CollisionData = new CollisionData();
@@ -46,7 +48,6 @@ public abstract class Character : MonoBehaviour, Attackable
     // Update is called once per frame
     protected virtual void Update()
     {
-        MoveWhileAttacking();
         HandleLayers();
     }
 
@@ -60,30 +61,22 @@ public abstract class Character : MonoBehaviour, Attackable
         rigidBody.velocity = Direction.normalized * speed;
     }
 
-    private void MoveWhileAttacking()
-    {
-        if (IsAttacking)
-        {
-            Direction = LastDirection;
-        }
-    }
-
     public void HandleLayers()
     {
         if (IsAttacking)
         {
-            ActivateLayer("AttackLayer");
+            ActivateLayer(getAttackLayerName());
         }
         else if (IsMoving)
         {
-            ActivateLayer("WalkLayer");
+            ActivateLayer(getMoveLayerName());
 
             Animator.SetFloat("x", Direction.x);
             Animator.SetFloat("y", Direction.y);
         }
         else
         {
-            ActivateLayer("IdleLayer");
+            ActivateLayer(getIdleLayerName());
         }
     }
 
@@ -97,14 +90,7 @@ public abstract class Character : MonoBehaviour, Attackable
         Animator.SetLayerWeight(Animator.GetLayerIndex(layerName), 1);
     }
 
-    public void StartAttack()
-    {
-        IsAttacking = true;
-        Animator.SetBool("attack", IsAttacking);
-        AttackEnemy();
-    }
-
-    protected void AttackEnemy()
+    protected void PerformAttack()
     {
         if (!CollisionData.IsInCollision())
         {
@@ -115,20 +101,10 @@ public abstract class Character : MonoBehaviour, Attackable
         {
             return;
         }
-        if (collidingObject.tag != null && collidingObject.tag.ToLower() == "enemy")
+        if (collidingObject.tag != null && collidingObject.tag.ToLower() == getEnemyTag())
         {
             var enemy = collidingObject.GetComponent<Attackable>();
             GiveDamage(enemy, Damage);
-        }
-    }
-
-    public void StopAttack()
-    {
-        if (AttackRoutine != null)
-        {
-            StopCoroutine(AttackRoutine);
-            IsAttacking = false;
-            Animator.SetBool("attack", IsAttacking);
         }
     }
 
@@ -140,6 +116,7 @@ public abstract class Character : MonoBehaviour, Attackable
     public void TakeDamage(float damage)
     {
         Health.CurrentValue -= damage;
+        Instantiate(DamageBurst, transform.position, transform.rotation);
     }
 
     public void AddHealth(int health)

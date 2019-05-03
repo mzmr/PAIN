@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class Chicken : Enemy
 {
-    // Start is called before the first frame update
-    protected override void Start()
+    private const float initHealth = 5;
+    private const string IDLE_LAYER = "IdleLayer";
+    private const string MOVE_LAYER = "WalkLayer";
+    private const string ATTACK_LAYER = "WalkLayer";
+
+    protected override string getAttackLayerName()
     {
-        base.Start();
+        return ATTACK_LAYER;
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    protected override string getIdleLayerName()
     {
-        base.Update();
+        return IDLE_LAYER;
     }
 
-    protected override Vector3 GetUpdatedVelocity()
+    protected override string getMoveLayerName()
     {
-        return GetFollowTargetVelocity() * -1;
+        return MOVE_LAYER;
+    }
+
+    protected override float getInitHealth()
+    {
+        return initHealth;
+    }
+
+    protected override bool IsRunningAway()
+    {
+        return true;
     }
 }
