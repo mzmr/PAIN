@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour, Attackable
 
     protected bool IsAttacking = false;
 
-    protected CollisionData CollisionData;
+    protected CombatCollisionData CollisionData;
 
     public bool IsMoving
     {
@@ -42,7 +42,7 @@ public abstract class Character : MonoBehaviour, Attackable
         Health.Initialize(getInitHealth(), getInitHealth());
         rigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
-        CollisionData = new CollisionData();
+        CollisionData = new CombatCollisionData();
     }
 
     // Update is called once per frame
@@ -96,14 +96,10 @@ public abstract class Character : MonoBehaviour, Attackable
         {
             return;
         }
-        var collidingObject = CollisionData.GetCollidingGameObject(gameObject);
-        if (collidingObject == null)
+        var attackedCharacter = CollisionData.AttackedCharacter;
+        if (attackedCharacter.tag.ToLower() == getEnemyTag())
         {
-            return;
-        }
-        if (collidingObject.tag != null && collidingObject.tag.ToLower() == getEnemyTag())
-        {
-            var enemy = collidingObject.GetComponent<Attackable>();
+            var enemy = attackedCharacter.GetComponent<Attackable>();
             GiveDamage(enemy, Damage);
         }
     }
@@ -127,12 +123,12 @@ public abstract class Character : MonoBehaviour, Attackable
 
     protected void OnCollisionEnter2D(Collision2D other)
     {
-        CollisionData.ActivateCollision(other);
+        CollisionData.AttemptToActivateCombatCollision(other, gameObject);
     }
 
     protected void OnCollisionExit2D(Collision2D other)
     {
-        CollisionData.DeactivateCurrentCollision();
+        CollisionData.DeactivateCombatCollision();
     }
 
 }
