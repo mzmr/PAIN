@@ -116,7 +116,8 @@ public abstract class Character : MonoBehaviour, Attackable
     public void TakeDamage(float damage)
     {
         Health.CurrentValue -= damage;
-        Instantiate(DamageBurst, transform.position, transform.rotation);
+        var clonedDamageBurst = Instantiate(DamageBurst, transform.position, transform.rotation);
+        Destroy(clonedDamageBurst, 1f);
     }
 
     public void AddHealth(int health)
