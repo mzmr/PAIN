@@ -9,37 +9,41 @@ public abstract class Character : MonoBehaviour, Attackable
     protected Stat Health;
 
     [SerializeField]
-    protected float speed; //change to private
+    private float speed;
 
-    public float Damage;
+    [SerializeField]
+    private float damage;
 
-    public GameObject DamageBurst;
+    [SerializeField]
+    private GameObject damageBurst;
+
+    [SerializeField]
+    private float maxHealth;
 
     protected Vector2 Direction;
 
     protected Animator Animator;
 
-    protected Rigidbody2D rigidBody; //change to private
-
     protected bool IsAttacking = false;
 
     protected CombatCollisionData CollisionData;
+
+    private Rigidbody2D rigidBody;
 
     public bool IsMoving
     {
         get => Math.Abs(Direction.x) > 0.1 || Math.Abs(Direction.y) > 0.1;
     }
 
-    protected abstract string getEnemyTag();
-    protected abstract float getInitHealth();
-    protected abstract string getIdleLayerName();
-    protected abstract string getMoveLayerName();
-    protected abstract string getAttackLayerName();
+    protected abstract string GetEnemyTag();
+    protected abstract string GetIdleLayerName();
+    protected abstract string GetMoveLayerName();
+    protected abstract string GetAttackLayerName();
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        Health.Initialize(getInitHealth(), getInitHealth());
+        Health.Initialize(maxHealth, maxHealth);
         rigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         CollisionData = new CombatCollisionData();
@@ -65,18 +69,18 @@ public abstract class Character : MonoBehaviour, Attackable
     {
         if (IsAttacking)
         {
-            ActivateLayer(getAttackLayerName());
+            ActivateLayer(GetAttackLayerName());
         }
         else if (IsMoving)
         {
-            ActivateLayer(getMoveLayerName());
+            ActivateLayer(GetMoveLayerName());
 
             Animator.SetFloat("x", Direction.x);
             Animator.SetFloat("y", Direction.y);
         }
         else
         {
-            ActivateLayer(getIdleLayerName());
+            ActivateLayer(GetIdleLayerName());
         }
     }
 
@@ -97,10 +101,10 @@ public abstract class Character : MonoBehaviour, Attackable
             return;
         }
         var attackedCharacter = CollisionData.AttackedCharacter;
-        if (attackedCharacter.tag.ToLower() == getEnemyTag())
+        if (attackedCharacter.tag.ToLower() == GetEnemyTag())
         {
             var enemy = attackedCharacter.GetComponent<Attackable>();
-            GiveDamage(enemy, Damage);
+            GiveDamage(enemy, damage);
         }
     }
 
@@ -112,7 +116,7 @@ public abstract class Character : MonoBehaviour, Attackable
     public void TakeDamage(float damage)
     {
         Health.CurrentValue -= damage;
-        var clonedDamageBurst = Instantiate(DamageBurst, transform.position, transform.rotation);
+        var clonedDamageBurst = Instantiate(damageBurst, transform.position, transform.rotation);
         Destroy(clonedDamageBurst, 1f);
     }
 

@@ -5,13 +5,17 @@ using UnityEngine;
 
 public abstract class Enemy : Character, Attackable
 {
-    public float AttackSpeed;
+    [SerializeField]
+    private float attackSpeed;
 
-    public GameObject TargetToFollow;
+    [SerializeField]
+    private GameObject targetToFollow;
 
-    public double MaxDistanceFromTargetToMove;
+    [SerializeField]
+    private double maxDistanceFromTargetToMove;
 
-    public List<GameObject> Loot;
+    [SerializeField]
+    private List<GameObject> loot;
 
     // Update is called once per frame
     protected override void Update()
@@ -37,7 +41,7 @@ public abstract class Enemy : Character, Attackable
     private void StartPerformingAttacks()
     {
         IsAttacking = true;
-        InvokeRepeating("PerformAttack", 0f, 1f / AttackSpeed);
+        InvokeRepeating("PerformAttack", 0f, 1f / attackSpeed);
     }
 
     private void StopPerformingAttacks()
@@ -62,7 +66,7 @@ public abstract class Enemy : Character, Attackable
 
     protected void DropLoot()
     {
-        foreach (GameObject o in Loot)
+        foreach (GameObject o in loot)
         {
             if (o != null)
             {
@@ -74,22 +78,22 @@ public abstract class Enemy : Character, Attackable
     protected double CalculateDistanceFromTarget()
     {
         return Math.Sqrt(
-            Math.Pow(Convert.ToDouble(TargetToFollow.transform.position.x) - Convert.ToDouble(transform.position.x), 2)
-            + Math.Pow(Convert.ToDouble(TargetToFollow.transform.position.y) - Convert.ToDouble(transform.position.y), 2)
+            Math.Pow(Convert.ToDouble(targetToFollow.transform.position.x) - Convert.ToDouble(transform.position.x), 2)
+            + Math.Pow(Convert.ToDouble(targetToFollow.transform.position.y) - Convert.ToDouble(transform.position.y), 2)
         );
     }
 
     private Vector2 CalculateVectorToTarget()
     {
         return new Vector2(
-            TargetToFollow.transform.position.x - transform.position.x,
-            TargetToFollow.transform.position.y - transform.position.y
+            targetToFollow.transform.position.x - transform.position.x,
+            targetToFollow.transform.position.y - transform.position.y
         );
     }
 
     protected void SetMovementDirection()
     {
-        if (CalculateDistanceFromTarget() > MaxDistanceFromTargetToMove)
+        if (CalculateDistanceFromTarget() > maxDistanceFromTargetToMove)
         {
             Direction = Vector2.zero;
         }
@@ -108,7 +112,7 @@ public abstract class Enemy : Character, Attackable
         }
     }
 
-    protected override string getEnemyTag()
+    protected override string GetEnemyTag()
     {
         return "player";
     }

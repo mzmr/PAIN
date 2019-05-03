@@ -6,22 +6,23 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField]
-    protected Stat Mana;
+    private float maxMana;
 
-    private const float initHealth = 100;
-    private const float initMana = 50;
+    [SerializeField]
+    private Stat Mana;
+    
     private const string IDLE_LAYER = "IdleLayer";
     private const string MOVE_LAYER = "WalkLayer";
     private const string ATTACK_LAYER = "AttackLayer";
 
-    private Vector2 LastDirection;
+    private Vector2 lastDirection;
 
-    protected Coroutine AttackRoutine;
+    private Coroutine attackRoutine;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        Mana.Initialize(initMana, initMana);
+        Mana.Initialize(maxMana, maxMana);
         base.Start();
     }
 
@@ -37,7 +38,7 @@ public class Player : Character
     {
         if (IsMoving)
         {
-            LastDirection = Direction;
+            lastDirection = Direction;
         }
 
         Direction = Vector2.zero;
@@ -74,7 +75,7 @@ public class Player : Character
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                AttackRoutine = StartCoroutine(Attack());
+                attackRoutine = StartCoroutine(Attack());
             }
         }
     }
@@ -95,9 +96,9 @@ public class Player : Character
 
     private void StopAttack()
     {
-        if (AttackRoutine != null)
+        if (attackRoutine != null)
         {
-            StopCoroutine(AttackRoutine);
+            StopCoroutine(attackRoutine);
             IsAttacking = false;
             Animator.SetBool("attack", IsAttacking);
         }
@@ -107,31 +108,26 @@ public class Player : Character
     {
         if (IsAttacking)
         {
-            Direction = LastDirection;
+            Direction = lastDirection;
         }
     }
 
-    protected override string getEnemyTag()
+    protected override string GetEnemyTag()
     {
         return "enemy";
     }
 
-    protected override float getInitHealth()
-    {
-        return initHealth;
-    }
-
-    protected override string getIdleLayerName()
+    protected override string GetIdleLayerName()
     {
         return IDLE_LAYER;
     }
 
-    protected override string getMoveLayerName()
+    protected override string GetMoveLayerName()
     {
         return MOVE_LAYER;
     }
 
-    protected override string getAttackLayerName()
+    protected override string GetAttackLayerName()
     {
         return ATTACK_LAYER;
     }
