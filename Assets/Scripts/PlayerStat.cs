@@ -9,8 +9,7 @@ public class PlayerStat : Stat
 
     [SerializeField]
     public Text statValue;
-
-    // Start is called before the first frame update
+    
     protected override void Start()
     {
         base.Start();

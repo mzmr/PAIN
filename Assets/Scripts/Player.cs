@@ -10,7 +10,10 @@ public class Player : Character
 
     [SerializeField]
     private Stat mana;
-    
+
+    [SerializeField]
+    private Stat health;
+
     private const string IDLE_LAYER = "IdleLayer";
     private const string MOVE_LAYER = "WalkLayer";
     private const string ATTACK_LAYER = "AttackLayer";
@@ -23,6 +26,7 @@ public class Player : Character
     protected override void Start()
     {
         mana.Initialize(maxMana, maxMana);
+        Health = health;
         base.Start();
     }
 

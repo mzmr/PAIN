@@ -6,9 +6,6 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour, Attackable
 {
     [SerializeField]
-    protected Stat health;
-
-    [SerializeField]
     private float speed;
 
     [SerializeField]
@@ -19,6 +16,8 @@ public abstract class Character : MonoBehaviour, Attackable
 
     [SerializeField]
     private float maxHealth;
+
+    protected Stat Health;
 
     protected Vector2 Direction;
 
@@ -43,7 +42,7 @@ public abstract class Character : MonoBehaviour, Attackable
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        health.Initialize(maxHealth, maxHealth);
+        Health.Initialize(maxHealth, maxHealth);
         rigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         CollisionData = new CombatCollisionData();
@@ -115,14 +114,14 @@ public abstract class Character : MonoBehaviour, Attackable
 
     public void TakeDamage(float damage)
     {
-        health.CurrentValue -= damage;
-        var clonedDamageBurst = Instantiate(damageBurst, transform.position, transform.rotation);
+        Health.CurrentValue -= damage;
+        var clonedDamageBurst = Instantiate(damageBurst, transform.position, transform.rotation, transform);
         Destroy(clonedDamageBurst, 1f);
     }
 
     public void AddHealth(int health)
     {
-        this.health.CurrentValue += health;
+        Health.CurrentValue += health;
     }
 
     protected void OnCollisionEnter2D(Collision2D other)

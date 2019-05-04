@@ -6,6 +6,9 @@ using UnityEngine;
 public abstract class Enemy : Character, Attackable
 {
     [SerializeField]
+    private GameObject healthBarPrefab;
+
+    [SerializeField]
     private float attackSpeed;
 
     [SerializeField]
@@ -16,15 +19,25 @@ public abstract class Enemy : Character, Attackable
 
     [SerializeField]
     private List<GameObject> loot;
-    
 
-    // Update is called once per frame
+    protected override void Start()
+    {
+        CreateHealthBar();
+        base.Start();
+    }
+    
     protected override void Update()
     {
         SetMovementDirection();
         CyclicAttack();
         CheckHealth();
         base.Update();
+    }
+
+    private void CreateHealthBar()
+    {
+        GameObject newHealthBar = Instantiate(healthBarPrefab, new Vector2(transform.position.x, transform.position.y + 1), transform.rotation, transform);
+        Health = newHealthBar.transform.GetChild(0).gameObject.GetComponent<Stat>();
     }
 
     protected void CyclicAttack()
@@ -53,7 +66,7 @@ public abstract class Enemy : Character, Attackable
 
     private void CheckHealth()
     {
-        if (health.CurrentValue <= 0)
+        if (Health.CurrentValue <= 0)
         {
             EnemyDeadAction();
         }
@@ -71,7 +84,7 @@ public abstract class Enemy : Character, Attackable
         {
             if (o != null)
             {
-                Instantiate(o, transform.position, transform.rotation);
+                Instantiate(o, transform.position, transform.rotation, GameObject.Find("Loot").transform);
             }
         }
     }
