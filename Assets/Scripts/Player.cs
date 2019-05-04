@@ -9,7 +9,7 @@ public class Player : Character
     private float maxMana;
 
     [SerializeField]
-    private Stat Mana;
+    private Stat mana;
     
     private const string IDLE_LAYER = "IdleLayer";
     private const string MOVE_LAYER = "WalkLayer";
@@ -22,7 +22,7 @@ public class Player : Character
     // Start is called before the first frame update
     protected override void Start()
     {
-        Mana.Initialize(maxMana, maxMana);
+        mana.Initialize(maxMana, maxMana);
         base.Start();
     }
 
@@ -45,13 +45,13 @@ public class Player : Character
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Health.CurrentValue -= 10;
-            Mana.CurrentValue -= 10;
+            AddHealth(-10);
+            mana.CurrentValue -= 10;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            Health.CurrentValue += 10;
-            Mana.CurrentValue += 10;
+            AddHealth(10);
+            mana.CurrentValue += 10;
         }
 
         if (!IsAttacking)
@@ -131,4 +131,5 @@ public class Player : Character
     {
         return ATTACK_LAYER;
     }
+
 }

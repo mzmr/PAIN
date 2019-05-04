@@ -4,15 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Stat : MonoBehaviour
+public abstract class Stat : MonoBehaviour
 {
-    private Image content;
-
     [SerializeField]
-    public Text statValue;
-
-    [SerializeField]
-    private GameObject fill;
+    private float lerpSpeed;
 
     private float currentFill;
     private float currentValue;
@@ -37,39 +32,27 @@ public class Stat : MonoBehaviour
             }
 
             currentFill = currentValue / MyMaxValue;
-
-            if (statValue != null)
-            {
-                statValue.text = currentValue + "/" + MyMaxValue;
-            }
+            UpdateTextValue();
         }
     }
 
-    [SerializeField]
-    public float lerpSpeed;
+    protected abstract float GetFillAmount();
+    protected abstract void SetFillAmount(float fillAmount);
+    protected virtual void UpdateTextValue() { }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        content = GetComponent<Image>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (statValue != null)
+        float fillAmount = GetFillAmount();
+        if (currentFill != fillAmount)
         {
-            if (currentFill != content.fillAmount)
-            {
-                content.fillAmount = Mathf.Lerp(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
-            }
-        }
-
-        if (fill != null)
-        {
-            var newScale = fill.transform.localScale;
-            newScale.x = Mathf.Lerp(newScale.x, currentFill, Time.deltaTime * lerpSpeed);
-            fill.transform.localScale = newScale;
+            SetFillAmount(Mathf.Lerp(fillAmount, currentFill, Time.deltaTime * lerpSpeed));
         }
     }
 

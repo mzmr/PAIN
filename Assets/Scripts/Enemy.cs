@@ -16,6 +16,7 @@ public abstract class Enemy : Character, Attackable
 
     [SerializeField]
     private List<GameObject> loot;
+    
 
     // Update is called once per frame
     protected override void Update()
@@ -52,7 +53,7 @@ public abstract class Enemy : Character, Attackable
 
     private void CheckHealth()
     {
-        if (Health.CurrentValue <= 0)
+        if (health.CurrentValue <= 0)
         {
             EnemyDeadAction();
         }

@@ -22,5 +22,4 @@ public class Bat : Enemy
     {
         return MOVE_LAYER;
     }
-
 }
