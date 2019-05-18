@@ -169,7 +169,8 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 5254125334360049629, guid: e16fa4724106a1e4faaf4f51e5fde8c5,
     type: 3}
   attackSpeed: 0.75
-  targetToFollow: {fileID: 0}
+  targetToFollow: {fileID: 8564294265816567836, guid: 1bb7c122a994b004aa001ecb2fceebba,
+    type: 3}
   maxDistanceFromTargetToMove: 7
   loot:
   - {fileID: 4593554889794174038, guid: aad2c951b3210f249a819862bbaa765a, type: 3}
