@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [SerializeField] protected QuestObject[] Quests;
+    [SerializeField] public QuestObject[] Quests;
 
-    [SerializeField] public bool[] questsCompleted;
+    [SerializeField] public bool[] QuestsCompleted;
 
     [SerializeField] public DialogueManager DialogueManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        questsCompleted = new bool[Quests.Length];
+        QuestsCompleted = new bool[Quests.Length];
     }
 
     // Update is called once per frame
@@ -24,6 +24,6 @@ public class QuestManager : MonoBehaviour
 
     public void ShowQuestText(string questText)
     {
-        DialogueManager.DialogueText.text = questText;
+        DialogueManager.ShowBox(questText);
     }
 }
