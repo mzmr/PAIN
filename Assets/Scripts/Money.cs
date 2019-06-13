@@ -5,7 +5,8 @@ using UnityEngine;
 public class Money : Pickable
 {
     public int CoinValue;
-    private MoneyManager moneyManager;
+    public MoneyManager moneyManager;
+    [SerializeField] private CollectingQuest collectingQuest;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,11 @@ public class Money : Pickable
         if (other.gameObject.tag.ToLower() == "player")
         {
             moneyManager.AddMoney(CoinValue);
+            collectingQuest = FindObjectOfType<CollectingQuest>();
+            if (collectingQuest != null)
+            {
+                collectingQuest.OnItemCollectionAction(this);
+            }
             Destroy(gameObject);
         }
     }
