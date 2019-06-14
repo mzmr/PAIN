@@ -22,4 +22,14 @@ public class Bat : Enemy
     {
         return MOVE_LAYER;
     }
+
+    protected override void EnemyDeadAction()
+    {
+        var batQuest = FindObjectOfType<BatQuest>();
+        if (batQuest != null)
+        {
+            batQuest.RegisterKilledEnemy();
+        }
+        base.EnemyDeadAction();
+    }
 }

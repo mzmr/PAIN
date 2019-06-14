@@ -72,7 +72,7 @@ public abstract class Enemy : Character, Attackable
         }
     }
 
-    protected void EnemyDeadAction()
+    protected virtual void EnemyDeadAction()
     {
         Destroy(gameObject);
         DropLoot();
