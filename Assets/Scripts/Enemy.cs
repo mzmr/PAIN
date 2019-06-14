@@ -107,7 +107,12 @@ public abstract class Enemy : Character, Attackable
 
     protected void SetMovementDirection()
     {
-        if (CalculateDistanceFromTarget() > maxDistanceFromTargetToMove)
+        var distanceToTarget = CalculateDistanceFromTarget();
+        if (distanceToTarget > maxDistanceFromTargetToMove)
+        {
+            Direction = Vector2.zero;
+        }
+        else if (distanceToTarget < 0.5)
         {
             Direction = Vector2.zero;
         }

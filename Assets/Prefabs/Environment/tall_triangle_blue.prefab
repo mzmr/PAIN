@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1089995051}
   - component: {fileID: 1089995052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 7930124618459987904}
   - component: {fileID: 132493007875430163}
   - component: {fileID: 5989263332004825250}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tall_triangle_blue
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

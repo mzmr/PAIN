@@ -17,8 +17,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Trees
+  - Flying Enemy
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: TopLayer
     uniqueID: 1907848267
+    locked: 0
+  - name: FlyingEnemyLayer
+    uniqueID: 4254231995
     locked: 0
